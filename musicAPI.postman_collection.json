@@ -1,0 +1,825 @@
+{
+	"info": {
+		"_postman_id": "a25cdf18-01b4-4455-86f4-73dc7a1f209a",
+		"name": "musicAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23502967"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Yahya Saad\",\r\n  \"email\": \"yahya@email.com\",\r\n  \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}api/Auth/Register",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"Auth",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const token = pm.response.json().accessToken;\r",
+									"pm.collectionVariables.set(\"accessToken\" , token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"superadmin@email.com\",\r\n  \"password\": \"superadmin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}api/Auth/Login",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"Auth",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change User Role (superadmin)",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/Auth/ChangeRole/:ID?role=admin",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"Auth",
+								"ChangeRole",
+								":ID"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "admin"
+								}
+							],
+							"variable": [
+								{
+									"key": "ID",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users (superadmin)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/Auth/users",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"Auth",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Song",
+			"item": [
+				{
+					"name": "Get All Songs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{dev}}api/songs?limit=100",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"songs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Featured Songs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/songs/featured",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"songs",
+								"featured"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "4",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Latest Songs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/songs/latest",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"songs",
+								"latest"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Song By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/songs/:ID",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"songs",
+								":ID"
+							],
+							"variable": [
+								{
+									"key": "ID",
+									"value": "19"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Song",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "last dsd",
+									"type": "text"
+								},
+								{
+									"key": "language",
+									"value": "arabic",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "1:55",
+									"type": "text"
+								},
+								{
+									"key": "AlbumId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "ArtistId",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/PC/Downloads/profilePic/02.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{dev}}api/songs",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"songs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Song",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "song update",
+									"type": "text"
+								},
+								{
+									"key": "language",
+									"value": "arabic",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "1:55",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "AlbumId",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "ArtistId",
+									"value": "4",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/PC/Downloads/download.jpeg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{dev}}api/songs/22",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"songs",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Featured",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "song 25 update",
+									"type": "text"
+								},
+								{
+									"key": "language",
+									"value": "english211",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "1:55",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/PC/Downloads/profilePic/02.jpg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{dev}}api/songs/:ID/toggle-featured",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"songs",
+								":ID",
+								"toggle-featured"
+							],
+							"variable": [
+								{
+									"key": "ID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Song",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/songs/:ID",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"songs",
+								":ID"
+							],
+							"variable": [
+								{
+									"key": "ID",
+									"value": "21"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Artist",
+			"item": [
+				{
+					"name": "Get All Artists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/artists?limit=2",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"artists"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/artists/6",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"artists",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add An Artist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "yahya saad",
+									"type": "text"
+								},
+								{
+									"key": "Gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/C:/Users/PC/Downloads/download (1).jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{dev}}api/artists",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"artists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update An Artist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "yahya saad update",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/C:/Users/PC/Downloads/download.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{dev}}api/artists/7",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"artists",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete An Artist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/artists/6",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"artists",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Album",
+			"item": [
+				{
+					"name": "Get All Albums",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "New Album",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{dev}}api/albums",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "200",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Album By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/albums/6",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"albums",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add An Album",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "New Album 2",
+									"type": "text"
+								},
+								{
+									"key": "ArtistId",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/C:/Users/PC/Downloads/RDR_2_Cover_PC-4213-1920.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{dev}}api/albums",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update An Album",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "New Album 1 ss",
+									"type": "text"
+								},
+								{
+									"key": "ArtistId",
+									"value": "4",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/C:/Users/PC/Downloads/RDR_2_Cover_PC-4213-1920.jpg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{dev}}api/albums/6",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"albums",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete An Album",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}api/albums/10",
+							"host": [
+								"{{dev}}api"
+							],
+							"path": [
+								"albums",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "dev",
+			"value": "https://localhost:7092/",
+			"type": "string"
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		}
+	]
+}
