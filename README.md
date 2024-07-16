@@ -10,6 +10,10 @@ This API is designed to manage a music platform with features similar to those f
 - **RBAC Using JWT Bearer**: Secure endpoints with JSON Web Tokens and manage user roles.
 - **Pagination**: Efficiently handle large datasets with pagination.
 
+## Endpoints
+![01music](https://github.com/user-attachments/assets/1d745a0d-25b3-42ce-b7b3-aabc3ba04a82)
+![02music](https://github.com/user-attachments/assets/71fc73d2-2273-4a23-ab03-ea9e336b6ae3)
+
 ## Getting Started
 
 ### Prerequisites
@@ -23,7 +27,7 @@ This API is designed to manage a music platform with features similar to those f
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yahya-saad/music-api.git
+   git clone https://github.com/yahya-saad/MusicApi.git
    cd music-api
    ```
 
